@@ -7,12 +7,67 @@
     tools:context="com.example.yash.droneapp.MainActivity">
 
     <TextView
+        android:id="@+id/textView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Hello World!"
+        android:text="Quadcopter Video Feed"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
+
+    <VideoView
+        android:id="@+id/videoView"
+        android:layout_width="135dp"
+        android:layout_height="168dp"
+        android:layout_marginBottom="98dp"
+        android:layout_marginEnd="56dp"
+        android:layout_marginStart="29dp"
+        android:layout_marginTop="28dp"
+        app:layout_constraintBottom_toTopOf="@+id/videoView7"
+        app:layout_constraintEnd_toStartOf="@+id/videoView6"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        android:layout_marginRight="56dp"
+        android:layout_marginLeft="29dp" />
+
+    <VideoView
+        android:id="@+id/videoView6"
+        android:layout_width="135dp"
+        android:layout_height="168dp"
+        android:layout_marginBottom="98dp"
+        android:layout_marginEnd="32dp"
+        android:layout_marginTop="28dp"
+        app:layout_constraintBottom_toTopOf="@+id/videoView8"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/videoView"
+        app:layout_constraintTop_toTopOf="parent"
+        android:layout_marginRight="32dp" />
+
+    <VideoView
+        android:id="@+id/videoView7"
+        android:layout_width="135dp"
+        android:layout_height="168dp"
+        android:layout_marginBottom="39dp"
+        android:layout_marginEnd="46dp"
+        android:layout_marginStart="29dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/videoView8"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/videoView"
+        android:layout_marginRight="46dp"
+        android:layout_marginLeft="29dp" />
+
+    <VideoView
+        android:id="@+id/videoView8"
+        android:layout_width="135dp"
+        android:layout_height="168dp"
+        android:layout_marginBottom="39dp"
+        android:layout_marginEnd="25dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/videoView7"
+        app:layout_constraintTop_toBottomOf="@+id/videoView6"
+        android:layout_marginRight="25dp" />
 
 </android.support.constraint.ConstraintLayout>

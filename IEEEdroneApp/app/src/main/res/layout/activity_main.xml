@@ -1,4 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
+
 <android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
@@ -16,6 +17,55 @@
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
+    <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:layout_editor_absoluteX="281dp"
+        tools:layout_editor_absoluteY="320dp">
+
+        <SurfaceView
+            android:id="@+id/surfaceView_One4"
+            android:layout_width="135dp"
+            android:layout_height="168dp"
+            android:layout_alignStart="@+id/surfaceView_One2"
+            android:layout_alignTop="@+id/surfaceView_One3"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <SurfaceView
+            android:id="@+id/surfaceView_One3"
+            android:layout_width="135dp"
+            android:layout_height="168dp"
+            android:layout_alignParentBottom="true"
+            android:layout_alignStart="@+id/surfaceView_One"
+            android:layout_marginBottom="51dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <SurfaceView
+            android:id="@+id/surfaceView_One2"
+            android:layout_width="135dp"
+            android:layout_height="168dp"
+            android:layout_alignParentEnd="true"
+            android:layout_alignTop="@+id/surfaceView_One"
+            android:layout_marginEnd="28dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <SurfaceView
+            android:id="@+id/surfaceView_One"
+            android:layout_width="135dp"
+            android:layout_height="168dp"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentTop="true"
+            android:layout_marginStart="29dp"
+            android:layout_marginTop="41dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+    </RelativeLayout>
+
+
+<!--
     <VideoView
         android:id="@+id/videoView"
         android:layout_width="135dp"
@@ -69,5 +119,6 @@
         app:layout_constraintStart_toEndOf="@+id/videoView7"
         app:layout_constraintTop_toBottomOf="@+id/videoView6"
         android:layout_marginRight="25dp" />
+-->
 
 </android.support.constraint.ConstraintLayout>

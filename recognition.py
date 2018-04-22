@@ -1,4 +1,12 @@
+#!/usr/bin/env python3
 import time
+import speech_recognition as sr
+
+from threading import Thread
+try:
+	from queue import Queue  # Python 3 import
+except ImportError:
+	from Queue import Queue  # Python 2 import
 import speech_recognition as sr
 
 m = sr.Microphone()
@@ -7,46 +15,42 @@ def calibrate(r):
 	with m as source:
 		r.adjust_for_ambient_noise(source)
 
-def initialize_recognizer():
-	r = sr.Recognizer()
-	calibrate(r)
-	return r
+r = sr.Recognizer()
 
-r = initialize_recognizer()
+audio_queue = Queue()
 
-def get_voice_command():
-	# obtain audio from the microphone
-	with sr.Microphone() as source:
-		print("Listening...")
-		r.adjust_for_ambient_noise(source)
-		audio = r.listen(source)
+def recognize_worker():
+    # this runs in a background thread
+    while True:
+        audio = audio_queue.get()  # retrieve the next audio processing job from the main thread
+        if audio is None: break  # stop processing if the main thread is done
 
-	# recognize speech using Sphinx
-	output = None
-	try:
-		output = r.recognize_sphinx(audio)
-		print("Sphinx thinks you said " + output)
-	except sr.UnknownValueError:
-		print("Sphinx could not understand audio")
-	except sr.RequestError as e:
-		print("Sphinx error; {0}".format(e))
+        # received audio data, now we'll recognize it using Google Speech Recognition
+        try:
+            # for testing purposes, we're just using the default API key
+            # to use another API key, use `r.recognize_google(audio, key="GOOGLE_SPEECH_RECOGNITION_API_KEY")`
+            # instead of `r.recognize_google(audio)`
+            print("Sphinx thinks you said " + r.recognize_sphinx(audio))
+        except sr.UnknownValueError:
+            print("Sphinx could not understand audio")
+        except sr.RequestError as e:
+            print("Sphinx error; {0}".format(e))
 
-	return output
+        audio_queue.task_done()  # mark the audio processing job as completed in the queue
 
-# get_voice_command()
+calibrate(r)  # calibrate before starting listening process
 
-def callback(r, audio):
-	output = None
-	try:
-		output = r.recognize_sphinx(audio)
-		print("Sphinx thinks you said " + output)
-	except sr.UnknownValueError:
-		print("Sphinx could not understand audio")
-	except sr.RequestError as e:
-		print("Sphinx error; {0}".format(e))
+# start a new thread to recognize audio, while this thread focuses on listening
+recognize_thread = Thread(target=recognize_worker)
+recognize_thread.daemon = True
+recognize_thread.start()
+with m as source:
+    try:
+        while True:  # repeatedly listen for phrases and put the resulting audio on the audio processing job queue
+            audio_queue.put(r.listen(source))
+    except KeyboardInterrupt:  # allow Ctrl + C to shut down the program
+        pass
 
-stop_listening = r.listen_in_background(m, callback)
-
-for _ in range(150): time.sleep(0.1)
-
-stop_listening(wait_for_stop=False)
+audio_queue.join()  # block until all current audio processing jobs are done
+audio_queue.put(None)  # tell the recognize_thread to stop
+recognize_thread.join()  # wait for the recognize_thread to actually stop

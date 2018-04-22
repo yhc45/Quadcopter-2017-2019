@@ -4,8 +4,17 @@ Annual Project Quadcopter 2017-2019
 ## Voice Recognition
 Voice recognition is done using the [CMU PocketSphinx](https://github.com/bambocher/pocketsphinx-python) API through the [Speech_Recognition](https://github.com/Uberi/speech_recognition) library
 
+## TODO
+
+- ~~Get CMU Pocket Sphinx to work~~
+- Get voice recognition as a background thread (should be parsing audio as new audio comes in -- no waiting between words)
+- Store parsed results as a string in a list (buffer)
+- Create function to return contents in buffer
+- Create function to return first item in buffer
+- Cut down on number of commands?
+
 ## Voice Commands
-TODO: Need to cut down the number of commands - there is a limit on it
+
 - Quadcopter names:
 	1. Red
 	2. Yellow

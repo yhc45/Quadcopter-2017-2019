@@ -7,12 +7,12 @@ Voice recognition is done using the [CMU PocketSphinx](https://github.com/bamboc
 ## TODO
 
 - ~~Get CMU Pocket Sphinx to work~~
-- ~~Get voice recognition as a background thread; should be parsing audio as new audio comes in no waiting between words~~
+- ~~Get voice recognition as a background thread; should be parsing audio as new audio comes without waiting between words~~
+- ~~Store parsed results as a string in a list (buffer)~~
+- ~~Create function to return contents in buffer~~
+- ~~Create function to return first item in buffer~~
 - **Get an algorithm to reduce ambient noise of quadcopeters**
 - **Look at image processing platforms**
-- Store parsed results as a string in a list (buffer)
-- Create function to return contents in buffer
-- Create function to return first item in buffer
 - Cut down on number of commands?
 
 ## Voice Commands

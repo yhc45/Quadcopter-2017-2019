@@ -1,13 +1,12 @@
 #!/usr/bin/env python3
 import time
 import speech_recognition as sr
-
+from collections import deque
 from threading import Thread
 try:
 	from queue import Queue  # Python 3 import
 except ImportError:
 	from Queue import Queue  # Python 2 import
-import speech_recognition as sr
 
 m = sr.Microphone()
 
@@ -18,6 +17,13 @@ def calibrate(r):
 r = sr.Recognizer()
 
 audio_queue = Queue()
+command_buffer = deque()
+
+def get_command():
+    return list.popleft()
+
+def get_buffer():
+    return command_buffer
 
 def recognize_worker():
     # this runs in a background thread
@@ -25,12 +31,11 @@ def recognize_worker():
         audio = audio_queue.get()  # retrieve the next audio processing job from the main thread
         if audio is None: break  # stop processing if the main thread is done
 
-        # received audio data, now we'll recognize it using Google Speech Recognition
+        # received audio data, now we'll recognize it using CMU Sphinx
         try:
-            # for testing purposes, we're just using the default API key
-            # to use another API key, use `r.recognize_google(audio, key="GOOGLE_SPEECH_RECOGNITION_API_KEY")`
-            # instead of `r.recognize_google(audio)`
-            print("Sphinx thinks you said " + r.recognize_sphinx(audio))
+            commands = r.recognize_sphinx(audio)
+            print("Sphinx thinks you said " + commands)
+            command_buffer.append(commands)
         except sr.UnknownValueError:
             print("Sphinx could not understand audio")
         except sr.RequestError as e:
